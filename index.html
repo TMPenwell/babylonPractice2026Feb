@@ -2,63 +2,71 @@
 <html>
 <head>
   <meta charset="utf-8"/>
-  <title>Babylon.js Playground</title>
+  <title>OETC 2026 AR Heart</title>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-
-  <!-- Babylon globals (kept so window.BABYLON is available if your app expects it) -->
-  <script src="https://assets.babylonjs.com/generated/Assets.js"></script>
-  <script src="https://cdn.babylonjs.com/recast.js"></script>
-  <script src="https://cdn.babylonjs.com/ammo.js"></script>
-  <script src="https://cdn.babylonjs.com/havok/HavokPhysics_umd.js"></script>
-  <script src="https://cdn.babylonjs.com/cannon.js"></script>
-  <script src="https://cdn.babylonjs.com/Oimo.js"></script>
-  <script src="https://cdn.babylonjs.com/earcut.min.js"></script>
   <script src="https://cdn.babylonjs.com/babylon.js"></script>
-  <script src="https://cdn.babylonjs.com/materialsLibrary/babylonjs.materials.min.js"></script>
-  <script src="https://cdn.babylonjs.com/proceduralTexturesLibrary/babylonjs.proceduralTextures.min.js"></script>
-  <script src="https://cdn.babylonjs.com/postProcessesLibrary/babylonjs.postProcess.min.js"></script>
-  <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.js"></script>
-  <script src="https://cdn.babylonjs.com/serializers/babylonjs.serializers.min.js"></script>
-  <script src="https://cdn.babylonjs.com/gui/babylon.gui.min.js"></script>
-  <script src="https://cdn.babylonjs.com/addons/babylonjs.addons.min.js"></script>
-  <script src="https://cdn.babylonjs.com/inspector/babylon.inspector.bundle.js"></script>
+  <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
 
   <style>
-    html,body,#renderCanvas{width:100%;height:100%;margin:0;padding:0;overflow:hidden;background:#000}
+    /* CRITICAL: Must be transparent for AR */
+    html, body, #renderCanvas {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: transparent !important;
+    }
   </style>
 </head>
 <body>
   <canvas id="renderCanvas"></canvas>
   <script type="module">
-    // Turn bundle text into a module URL
-    const code = "// snapshot:index.js\nvar createScene = function() {\n  var scene = new BABYLON.Scene(engine);\n  var camera = new BABYLON.ArcRotateCamera(\"camera\", BABYLON.Tools.ToRadians(0), BABYLON.Tools.ToRadians(57.3), 10, BABYLON.Vector3.Zero(), scene);\n  camera.attachControl(canvas, true);\n  camera.attachControl(canvas, true);\n  var light = new BABYLON.HemisphericLight(\"light\", new BABYLON.Vector3(0, 1, 0), scene);\n  light.intensity = 0.7;\n  scene.clearColor = new BABYLON.Color4(0, 0, 0, 0);\n  scene.autoClear = true;\n  var folderUrl = \"https://cdn.jsdelivr.net/gh/TMPenwell/babylonPractice2026Feb@main/\";\n  var fileName = \"oetc2026Asset%201heart.gltf\";\n  BABYLON.SceneLoader.ImportMesh(\"\", folderUrl, fileName, scene, function(meshes) {\n    scene.createDefaultCameraOrLight(true, true, true);\n    scene.activeCamera.alpha += Math.PI;\n  });\n  const xr = scene.createDefaultXRExperienceAsync({\n    uiOptions: {\n      sessionMode: \"immersive-ar\"\n    },\n    optionalFeatures: true\n  });\n  return scene;\n};\nexport {\n  createScene\n};\n//# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsic25hcHNob3Q6aW5kZXguanMiXSwKICAic291cmNlc0NvbnRlbnQiOiBbImV4cG9ydCBjb25zdCBjcmVhdGVTY2VuZSA9IGZ1bmN0aW9uICgpIHtcbiAgICAvLyBUaGlzIGNyZWF0ZXMgYSBiYXNpYyBCYWJ5bG9uIFNjZW5lIG9iamVjdCAobm9uLW1lc2gpXG4gICAgdmFyIHNjZW5lID0gbmV3IEJBQllMT04uU2NlbmUoZW5naW5lKTtcblxuICAgIHZhciBjYW1lcmEgPSBuZXcgQkFCWUxPTi5BcmNSb3RhdGVDYW1lcmEoXCJjYW1lcmFcIiwgQkFCWUxPTi5Ub29scy5Ub1JhZGlhbnMoMCksIEJBQllMT04uVG9vbHMuVG9SYWRpYW5zKDU3LjMpLCAxMCwgQkFCWUxPTi5WZWN0b3IzLlplcm8oKSwgc2NlbmUpO1xuICAgIGNhbWVyYS5hdHRhY2hDb250cm9sKGNhbnZhcywgdHJ1ZSk7XG5cbiAgICAvLyBUaGlzIGF0dGFjaGVzIHRoZSBjYW1lcmEgdG8gdGhlIGNhbnZhc1xuICAgIGNhbWVyYS5hdHRhY2hDb250cm9sKGNhbnZhcywgdHJ1ZSk7XG5cbiAgICAvLyBUaGlzIGNyZWF0ZXMgYSBsaWdodCwgYWltaW5nIDAsMSwwIC0gdG8gdGhlIHNreSAobm9uLW1lc2gpXG4gICAgdmFyIGxpZ2h0ID0gbmV3IEJBQllMT04uSGVtaXNwaGVyaWNMaWdodChcImxpZ2h0XCIsIG5ldyBCQUJZTE9OLlZlY3RvcjMoMCwgMSwgMCksIHNjZW5lKTtcblxuICAgIC8vIERlZmF1bHQgaW50ZW5zaXR5IGlzIDEuIExldCdzIGRpbSB0aGUgbGlnaHQgYSBzbWFsbCBhbW91bnRcbiAgICBsaWdodC5pbnRlbnNpdHkgPSAwLjc7XG5cbiAgICAvLyBUaGlzIG1ha2VzIHRoZSBiYWNrZ3JvdW5kIHRyYW5zcGFyZW50XG4gICAgc2NlbmUuY2xlYXJDb2xvciA9IG5ldyBCQUJZTE9OLkNvbG9yNCgwLCAwLCAwLCAwKTtcblxuICAgIC8vIFRoaXMgZW5zdXJlcyB0aGUgZW5naW5lIGRvZXNuJ3QgZmlsbCB0aGUgYmFja2dyb3VuZCB3aXRoIGEgZGVmYXVsdCBjb2xvclxuICAgIHNjZW5lLmF1dG9DbGVhciA9IHRydWU7XG5cbi8vIC0tLS0tLW9yaWdpbmFsIGNvZGUgYmVnaW5zIC0tLS0tXG4gICAgLy8gLy8gT3VyIGJ1aWx0LWluICdncm91bmQnIHNoYXBlLlxuICAgIC8vIHZhciBncm91bmQgPSBCQUJZTE9OLk1lc2hCdWlsZGVyLkNyZWF0ZUdyb3VuZChcImdyb3VuZFwiLCB7d2lkdGg6IDYsIGhlaWdodDogNn0sIHNjZW5lKTtcbiAgICAvLyBjb25zdCBncm91bmRNYXRlcmlhbCA9IG5ldyBCQUJZTE9OLlN0YW5kYXJkTWF0ZXJpYWwgKFwiR3JvdW5kIE1hdGVyaWFsXCIsIHNjZW5lKTtcbiAgICAvLyBncm91bmRNYXRlcmlhbC5kaWZmdXNlQ29sb3IgPSBCQUJZTE9OLkNvbG9yMy5SZWQoKTtcbiAgICAvLyBsZXQgZ3JvdW5kVGV4dHVyZSA9IG5ld1xuICAgIC8vIEJBQllMT04uVGV4dHVyZShBc3NldHMudGV4dHVyZXMuY2hlY2tlcmJvYXJkX2Jhc2Vjb2xvcl9wbmcucGF0aCwgc2NlbmUpXG4gICAgLy8gZ3JvdW5kTWF0ZXJpYWwuZGlmZnVzZVRleHR1cmUgPSBncm91bmRUZXh0dXJlXG4gICAgLy8gZ3JvdW5kLm1hdGVyaWFsID0gZ3JvdW5kTWF0ZXJpYWw7XG5cblxuLy8gLS0tLS1oZWFydCBjb2RlIGJlZ2lucyAtLS0tLS0tXG4gICAgLy8gMi4gWW91ciBzcGVjaWZpYyBqc0RlbGl2ciBwYXRoXG4gICAgLy8gVGhlIGZvbGRlciBVUkwgTVVTVCBlbmQgd2l0aCBhIGZvcndhcmQgc2xhc2ggL1xuICAgIHZhciBmb2xkZXJVcmwgPSBcImh0dHBzOi8vY2RuLmpzZGVsaXZyLm5ldC9naC9UTVBlbndlbGwvYmFieWxvblByYWN0aWNlMjAyNkZlYkBtYWluL1wiO1xuICAgIHZhciBmaWxlTmFtZSA9IFwib2V0YzIwMjZBc3NldCUyMDFoZWFydC5nbHRmXCI7XG5cbiAgICAvLyAzLiBJbXBvcnQgdGhlIE1lc2hcbiAgICBCQUJZTE9OLlNjZW5lTG9hZGVyLkltcG9ydE1lc2goXCJcIiwgZm9sZGVyVXJsLCBmaWxlTmFtZSwgc2NlbmUsIGZ1bmN0aW9uIChtZXNoZXMpIHtcbiAgICAgICAgLy8gVGhpcyBoZWxwZXIgZnVuY3Rpb24gZW5zdXJlcyB5b3VyIGhlYXJ0IGlzIHZpc2libGUgcmVnYXJkbGVzcyBvZiBcbiAgICAgICAgLy8gaG93IElsbHVzdHJhdG9yIHNjYWxlZCB0aGUgZXhwb3J0LlxuICAgICAgICBzY2VuZS5jcmVhdGVEZWZhdWx0Q2FtZXJhT3JMaWdodCh0cnVlLCB0cnVlLCB0cnVlKTtcbiAgICAgICAgXG4gICAgICAgIC8vIE9wdGlvbmFsOiBSb3RhdGUgdGhlIGNhbWVyYSBzbGlnaHRseSBzbyB5b3UgYXJlbid0IGxvb2tpbmcgYXQgdGhlIHNpZGVcbiAgICAgICAgc2NlbmUuYWN0aXZlQ2FtZXJhLmFscGhhICs9IE1hdGguUEk7IFxuICAgIH0pO1xuXG5cblxuICAgIC8vIEJBQllMT04uSW1wb3J0TWVzaEFzeW5jKEFzc2V0cy5tZXNoZXMuWWV0aS5yb290VXJsICsgQXNzZXRzLm1lc2hlcy5ZZXRpLmZpbGVuYW1lLCBzY2VuZSwgeyBtZXNoTmFtZXM6IFwiXCIgfSkudGhlbigocmVzdWx0KT0+IHtcbiAgICAvLyByZXN1bHQubWVzaGVzWzBdLnNjYWxpbmcgPSBuZXcgQkFCWUxPTi5WZWN0b3IzKDAuMSwgMC4xLCAwLjEpO1xuICAgIC8vIH0pO1xuXG4gICAgLy8gVGhpcyBjcmVhdGVzIHRoZSBBUiBleHBlcmllbmNlXG4gICAgY29uc3QgeHIgPSBzY2VuZS5jcmVhdGVEZWZhdWx0WFJFeHBlcmllbmNlQXN5bmMoe1xuICAgIHVpT3B0aW9uczoge1xuICAgICAgICBzZXNzaW9uTW9kZTogXCJpbW1lcnNpdmUtYXJcIixcbiAgICB9LFxuICAgIG9wdGlvbmFsRmVhdHVyZXM6IHRydWVcbiAgICB9KTtcblxuICAgIHJldHVybiBzY2VuZTtcbn07XG4vLyMgc291cmNlVVJMPWZpbGU6Ly8vcGcvaW5kZXguanMiXSwKICAibWFwcGluZ3MiOiAiO0FBQU8sSUFBTSxjQUFjLFdBQVk7QUFFbkMsTUFBSSxRQUFRLElBQUksUUFBUSxNQUFNLE1BQU07QUFFcEMsTUFBSSxTQUFTLElBQUksUUFBUSxnQkFBZ0IsVUFBVSxRQUFRLE1BQU0sVUFBVSxDQUFDLEdBQUcsUUFBUSxNQUFNLFVBQVUsSUFBSSxHQUFHLElBQUksUUFBUSxRQUFRLEtBQUssR0FBRyxLQUFLO0FBQy9JLFNBQU8sY0FBYyxRQUFRLElBQUk7QUFHakMsU0FBTyxjQUFjLFFBQVEsSUFBSTtBQUdqQyxNQUFJLFFBQVEsSUFBSSxRQUFRLGlCQUFpQixTQUFTLElBQUksUUFBUSxRQUFRLEdBQUcsR0FBRyxDQUFDLEdBQUcsS0FBSztBQUdyRixRQUFNLFlBQVk7QUFHbEIsUUFBTSxhQUFhLElBQUksUUFBUSxPQUFPLEdBQUcsR0FBRyxHQUFHLENBQUM7QUFHaEQsUUFBTSxZQUFZO0FBZ0JsQixNQUFJLFlBQVk7QUFDaEIsTUFBSSxXQUFXO0FBR2YsVUFBUSxZQUFZLFdBQVcsSUFBSSxXQUFXLFVBQVUsT0FBTyxTQUFVLFFBQVE7QUFHN0UsVUFBTSwyQkFBMkIsTUFBTSxNQUFNLElBQUk7QUFHakQsVUFBTSxhQUFhLFNBQVMsS0FBSztBQUFBLEVBQ3JDLENBQUM7QUFTRCxRQUFNLEtBQUssTUFBTSwrQkFBK0I7QUFBQSxJQUNoRCxXQUFXO0FBQUEsTUFDUCxhQUFhO0FBQUEsSUFDakI7QUFBQSxJQUNBLGtCQUFrQjtBQUFBLEVBQ2xCLENBQUM7QUFFRCxTQUFPO0FBQ1g7IiwKICAibmFtZXMiOiBbXQp9Cg==\n";
-    const blob = new Blob([code], { type: 'text/javascript' });
-    const url = URL.createObjectURL(blob);
+    const canvas = document.getElementById("renderCanvas");
+    const engine = new BABYLON.Engine(canvas, true, { alpha: true, stencil: true });
 
-    const BABYLON = window.BABYLON;
-    const canvas = document.getElementById('renderCanvas');
+    export const createScene = async function() {
+      var scene = new BABYLON.Scene(engine);
+      
+      // Transparent background
+      scene.clearColor = new BABYLON.Color4(0, 0, 0, 0);
 
-    // Import your bundled app (which exports createScene / default)
-    const mod = await import(url);
+      var camera = new BABYLON.ArcRotateCamera("camera", BABYLON.Tools.ToRadians(0), BABYLON.Tools.ToRadians(57.3), 10, BABYLON.Vector3.Zero(), scene);
+      camera.attachControl(canvas, true);
 
-    let engine = null;
-    if (typeof mod.createEngine === 'function') {
-      try { engine = await mod.createEngine(); } catch {}
-    }
-    if (!engine) {
-      engine = new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true });
-    }
-    window.engine = engine; window.canvas = canvas;
+      var light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
+      light.intensity = 0.8;
 
-    let createScene = mod.createScene || mod.default;
-    if (!createScene && mod.Playground?.CreateScene) createScene = (e,c)=>mod.Playground.CreateScene(e,c);
-    if (!createScene) throw new Error('No createScene() export found.');
+      var folderUrl = "https://cdn.jsdelivr.net/gh/TMPenwell/babylonPractice2026Feb@main/";
+      var fileName = "oetc2026Asset%201heart.gltf";
 
-    const scene = await (createScene(engine, canvas) ?? createScene());
-    engine.runRenderLoop(()=>scene.render());
-    addEventListener('resize', ()=>engine.resize());
+      BABYLON.SceneLoader.ImportMesh("", folderUrl, fileName, scene, function(meshes) {
+        scene.createDefaultCameraOrLight(true, true, true);
+        scene.activeCamera.alpha += Math.PI;
+      });
 
-    addEventListener('unload', ()=> URL.revokeObjectURL(url));
+      // Initialize AR
+      try {
+        const xr = await scene.createDefaultXRExperienceAsync({
+          uiOptions: {
+            sessionMode: "immersive-ar",
+          },
+          optionalFeatures: true
+        });
+      } catch (e) {
+        console.log("WebXR not supported in this browser.");
+      }
+
+      return scene;
+    };
+
+    createScene().then(scene => {
+      engine.runRenderLoop(() => {
+        scene.render();
+      });
+    });
+
+    window.addEventListener("resize", () => { engine.resize(); });
   </script>
 </body>
 </html>
